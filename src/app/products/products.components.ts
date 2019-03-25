@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {IProduct} from './products';
+import { ProductService } from './products.service';
 @Component({
     selector: 'app-product-comp',
     templateUrl: './products.component.html',
@@ -11,45 +12,22 @@ import {IProduct} from './products';
 export class ProductComponent implements OnInit {
     title = '*** Product list***';
     showimage= false;
-    filterProduct= 'leaf';
+    filterProduct= '';
     imagewidth= 50;
-    product: IProduct[]= [
-        {
-            'id': 1,
-            'brand': 'Ford',
-            'model': 'Mustang',
-            'year': 1985,
-            'price': 1000,
-            'starRating': 3.2,
-            'imageUrl': 'https://image.ibb.co/fm778n/accord.jpg'
-        },
-        {
-            'id': 2,
-            'brand': 'Nissan',
-            'model': 'Altima',
-            'year': 2017,
-            'price': 2000,
-            'starRating': 4.5,
-            'imageUrl': 'https://image.ibb.co/fm778n/accord.jpg',
-        },
-
-        {
-        'id': 3,
-        'brand': 'Ford',
-        'model': 'Mustang',
-        'year': 1985,
-        'price': 1000,
-        'starRating': 3.2,
-        'imageUrl': 'https://image.ibb.co/fm778n/accord.jpg'
-        }
-
-        ];
-
+    products: any;
+    errorMessage: string;
+    constructor( private _productService: ProductService ) {}
         ngOnInit(): void {
-              console.log( 'this is init' );
-
+              this._productService.getProducts()
+              .subscribe( response => {
+                  this.products = response;
+            });
         }
         toggleimage(): void {
-            this.showimage = !this.showimage 
+            this.showimage = !this.showimage ;
+        }
+
+        onRatingClicked(message: string): void {
+              this.title = 'Product list::::::::' + message;
         }
 }

@@ -3,7 +3,6 @@
 <div class="panel-heading">
      {{title}}
 </div>
-
 <div class="panel-body">
     <div class="row">
     <div class="col-md-2">Filter by:</div>
@@ -34,14 +33,15 @@
 </tr>
 </thead>
 <tbody>
-<tr *ngFor="let product of product|productFilter:filterProduct">
+<tr *ngFor="let product of products|productFilter:filterProduct">
     <td><img [src]="product.imageUrl" *ngIf="showimage"
     [style.width.px]="imagewidth"></td>
-    <td>{{product.brand}}</td>
-    <td>{{product.model}}</td>
-    <td>{{product.year}}</td>
+    <td>{{product.productName}}</td>
+    <td>{{product.productCode}}</td>
+    <td>{{product.releaseDate}}</td>
     <td>{{product.price|currency}}</td>
-    <td>{{product.starRating}}</td>
+    <td><app-star-comp [rating]="product.starRating" 
+        (ratingClicked)="onRatingClicked($event)"></app-star-comp></td>
     </tr>
 </tbody>
 </table>
