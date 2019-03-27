@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
 templateUrl: './product-detail.component.html'
@@ -7,10 +7,29 @@ templateUrl: './product-detail.component.html'
 
 export class ProductDetailComponent implements OnInit {
 title = 'Product Detail Page';
-constructor(private _route: ActivatedRoute) {}
+name: string;
+desc: string;
+img: string;
+
+constructor(private _route: ActivatedRoute,
+            private _router: Router) {}
 
 
 ngOnInit(): void {
     const id = +this._route.snapshot.params['id'];
-    this.title += `>>>> ${id} `; }
+    this.title += `>>>> ${id} `;
+
+     this._route.queryParams.subscribe( params => {
+         this.name = params['name'];
+         this.desc = params['desc'];
+         this.img = params['img'];
+});
+}
+
+onBack(): void {
+    this._router.navigate(['/products']);
+}
+
+
+
 }

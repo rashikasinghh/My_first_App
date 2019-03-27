@@ -36,7 +36,7 @@
 <tr *ngFor="let product of products|productFilter:filterProduct">
     <td><img [src]="product.imageUrl" *ngIf="showimage"
     [style.width.px]="imagewidth"></td>
-    <td><a [routerLink]= "['/products',product.productId]">{{product.productName}}</a></td>
+    <td><a [routerLink]= "['/products',product.productId] " [queryParams]="{name:product.productName,desc:product.description,img:product.imageUrl}">{{product.productName}}</a></td>
     <td>{{product.productCode}}</td>
     <td>{{product.releaseDate}}</td>
     <td>{{product.price|currency}}</td>
